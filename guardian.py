@@ -41,3 +41,9 @@ class HIDGuardian:
                     print("[USB] New keyboard device detected!")
                     self.new_usb_detected = True
                     self.suspicion_score += 6
+
+
+if _name_ == "_main_":
+    guardian = HIDGuardian()
+    guardian.start()
+
