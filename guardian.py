@@ -43,7 +43,27 @@ class HIDGuardian:
                     self.suspicion_score += 6
 
 
+    def lock_system(self):
+        timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+
+        log_data = {
+            "timestamp": timestamp,
+            "suspicion_score": self.suspicion_score,
+            "burst_count": self.burst_count,
+            "usb_recent": self.new_usb_detected
+        }
+
+        with open("attack_logs.json", "a") as f:
+            f.write(json.dumps(log_data) + "\n")
+
+        print("\n🚨 SECURITY ALERT TRIGGERED 🚨")
+        print(log_data)
+
+        subprocess.run(["xdg-screensaver", "lock"])
+
+
 if _name_ == "_main_":
     guardian = HIDGuardian()
     guardian.start()
+
 
