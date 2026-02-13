@@ -1,0 +1,2 @@
+# SelfDestructiveTrio
+Our sibathon participation
