@@ -131,6 +131,12 @@ class HIDGuardPro(ctk.CTk):
         with keyboard.Listener(on_press=self.on_press) as listener:
             listener.join()
 
+    def restore_system(self):
+        """Action: Reset Dashboard State."""
+        self.status_box.configure(text="SHIELD STATUS: SECURED", text_color="#2ecc71")
+        self.progress.set(1.0)
+
+
 
 
 if __name__ == "__main__":
