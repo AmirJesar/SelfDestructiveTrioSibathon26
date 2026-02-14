@@ -34,6 +34,25 @@ class AttackSimulator(ctk.CTk):
     def start_attack_thread(self):
         threading.Thread(target=self.run_attack, daemon=True).start()
 
+    # Function that simulates the attack
+    def run_attack(self):
+        # Update status before starting
+        self.status.configure(text="Status: Launching in 3s...")
+        time.sleep(3)  # Wait 3 seconds before execution
+
+        # Update status to show injection phase
+        self.status.configure(text="Status: INJECTING...")
+
+        # Payload to simulate keystroke injection (like Rubber Ducky)
+        payload = "echo 'System Breached!' && cat /etc/passwd\n"
+
+        # Types payload automatically at high speed
+        pyautogui.write(payload, interval=0.01) 
+
+        # Reset status after attack completes
+        self.status.configure(text="Status: Ready")
+        
+
 # Entry point of the program
 if __name__ == "__main__":
     app = AttackSimulator()  # Create app instance
