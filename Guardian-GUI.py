@@ -102,10 +102,10 @@ class HIDGuardPro(ctk.CTk):
 
     def lock_system(self):
         """Action: Operating System Lockdown."""
-            try:
-                subprocess.run(["gnome-screensaver-command", "-l"]) # GNOME Lock
-            except Exception:
-                subprocess.run(["loginctl", "lock-session"])       # Systemd Fallback
+        try:
+            subprocess.run(["gnome-screensaver-command", "-l"]) # GNOME Lock
+        except Exception:
+            subprocess.run(["loginctl", "lock-session"])       # Systemd Fallback
 
     def on_press(self, key):
         """Event: Keystroke timing capture."""
