@@ -1,4 +1,6 @@
-simulator.py
+"""
+THIS WAS OUR PREVIOUS ATTEMPT 
+
 import pyautogui
 import time
 
@@ -19,3 +21,6 @@ def run_attack_simulation(interval=0.01):
 
 if _name_ == "_main_":
     run_attack_simulation()
+
+
+"""
