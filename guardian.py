@@ -72,10 +72,18 @@ class HIDGuardian:
 
         avg_delay = sum(self.intervals) / len(self.intervals)
 
+        if avg_delay < SPEED_THRESHOLD:
+            self.suspicion_score += 5
+            self.burst_count += 1
+        else:
+            self.burst_count = 0
+
+
 
 if _name_ == "_main_":
     guardian = HIDGuardian()
     guardian.start()
+
 
 
 
