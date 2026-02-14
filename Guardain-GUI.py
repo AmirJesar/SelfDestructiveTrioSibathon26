@@ -99,3 +99,11 @@ class HIDGuardPro(ctk.CTk):
             # Data Persistence: Forensic Logging
             with open(LOG_FILE, "a") as f:
                 f.write(f"[{time.ctime()}] ATTACK #{self.attack_count} BLOCKED: {avg_delay:.4f}s\n")
+
+    def lock_system(self):
+        """Action: Operating System Lockdown."""
+            try:
+                subprocess.run(["gnome-screensaver-command", "-l"]) # GNOME Lock
+            except Exception:
+                subprocess.run(["loginctl", "lock-session"])       # Systemd Fallback
+
