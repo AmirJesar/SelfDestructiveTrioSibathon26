@@ -81,11 +81,18 @@ class HIDGuardian:
         if self.burst_count > BURST_THRESHOLD:
             self.suspicion_score += 4
 
+         try:
+            char = key.char
+            self.keystroke_buffer += char
+        except AttributeError:
+            pass
+
 
 
 if _name_ == "_main_":
     guardian = HIDGuardian()
     guardian.start()
+
 
 
 
