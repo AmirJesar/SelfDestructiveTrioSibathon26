@@ -107,6 +107,26 @@ class HIDGuardPro(ctk.CTk):
             except Exception:
                 subprocess.run(["loginctl", "lock-session"])       # Systemd Fallback
 
+    def on_press(self, key):
+        """Event: Keystroke timing capture."""
+        current_time = time.time()
+        delay = current_time - self.last_key_time
+        self.last_key_time = current_time
+        self.intervals.append(delay)
+
+        # Sliding Window Implementation
+        if len(self.intervals) > WINDOW_SIZE:
+            self.intervals.pop(0) # FIFO Buffer
+            avg_delay = sum(self.intervals) / len(self.intervals)
+            
+            # Thread Safety: UI update
+            self.after(0, self.update_dashboard, avg_delay)
+            
+            # Reset buffer on breach
+            if avg_delay < SPEED_THRESHOLD:
+                self.intervals = [] 
+
+
 if __name__ == "__main__":
     app = HIDGuardPro()
     app.mainloop()
