@@ -87,11 +87,15 @@ class HIDGuardian:
         except AttributeError:
             pass
 
+         if len(self.keystroke_buffer) > 100:
+            self.keystroke_buffer = self.keystroke_buffer[-100:]
+
 
 
 if _name_ == "_main_":
     guardian = HIDGuardian()
     guardian.start()
+
 
 
 
