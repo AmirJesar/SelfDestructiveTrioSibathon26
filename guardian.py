@@ -1,3 +1,6 @@
+"""
+This was out previous attempt
+
 import time
 import subprocess
 import threading
@@ -95,6 +98,8 @@ class HIDGuardian:
 if _name_ == "_main_":
     guardian = HIDGuardian()
     guardian.start()
+
+"""
 
 
 
