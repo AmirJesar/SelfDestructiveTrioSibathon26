@@ -136,7 +136,10 @@ class HIDGuardPro(ctk.CTk):
         self.status_box.configure(text="SHIELD STATUS: SECURED", text_color="#2ecc71")
         self.progress.set(1.0)
 
-
+    def open_logs(self):
+        """Action: Open Incident Logs."""
+        if os.path.exists(LOG_FILE):
+            subprocess.Popen(["xdg-open", LOG_FILE])
 
 
 if __name__ == "__main__":
