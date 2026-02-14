@@ -60,10 +60,22 @@ class HIDGuardian:
         print(log_data)
 
         subprocess.run(["xdg-screensaver", "lock"])
+    
+    def on_press(self, key):
+        current_time = time.time()
+        delay = current_time - self.last_key_time
+        self.last_key_time = current_time
+
+        self.intervals.append(delay)
+        if len(self.intervals) > WINDOW_SIZE:
+            self.intervals.pop(0)
+
+        avg_delay = sum(self.intervals) / len(self.intervals)
 
 
 if _name_ == "_main_":
     guardian = HIDGuardian()
     guardian.start()
+
 
 
