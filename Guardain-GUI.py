@@ -126,6 +126,12 @@ class HIDGuardPro(ctk.CTk):
             if avg_delay < SPEED_THRESHOLD:
                 self.intervals = [] 
 
+    def start_listener(self):
+        """Execution: Global Keyboard Hook."""
+        with keyboard.Listener(on_press=self.on_press) as listener:
+            listener.join()
+
+
 
 if __name__ == "__main__":
     app = HIDGuardPro()
