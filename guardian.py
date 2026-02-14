@@ -78,11 +78,15 @@ class HIDGuardian:
         else:
             self.burst_count = 0
 
+        if self.burst_count > BURST_THRESHOLD:
+            self.suspicion_score += 4
+
 
 
 if _name_ == "_main_":
     guardian = HIDGuardian()
     guardian.start()
+
 
 
 
