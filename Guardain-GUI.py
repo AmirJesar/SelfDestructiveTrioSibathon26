@@ -107,3 +107,6 @@ class HIDGuardPro(ctk.CTk):
             except Exception:
                 subprocess.run(["loginctl", "lock-session"])       # Systemd Fallback
 
+if __name__ == "__main__":
+    app = HIDGuardPro()
+    app.mainloop()
