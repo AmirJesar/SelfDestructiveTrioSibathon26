@@ -10,7 +10,66 @@ WINDOW_SIZE = 10         # Logic: Sliding window size (Sample size)
 COOLDOWN_SECONDS = 1    # Control: Prevention delay
 LOG_FILE = "attack_logs.txt"
 
-def toggle_safe_mode(self):
+class HIDGuardPro(ctk.CTk):
+    def __init__(self):
+        super().__init__()
+
+        # UI Initialization
+        self.title("HID-Guard | Fast Response")
+        self.geometry("600x650")
+        ctk.set_appearance_mode("dark")
+
+        # Core State Variables
+        self.attack_count = 0        # Counter: Total incidents
+        self.last_attack_time = 0    # Check: Cooldown state
+        self.safe_mode = False       # Feature: Lock bypass toggle
+        
+        # Dashboard Components
+        self.label = ctk.CTkLabel(self, text="HID-GUARD DASHBOARD", font=("Roboto", 24, "bold"))
+        self.label.pack(pady=20)
+
+        self.counter_label = ctk.CTkLabel(self, text="Attacks Prevented: 0", font=("Roboto", 14), text_color="#3498db")
+        self.counter_label.pack()
+
+        # Input Control: Toggle Mitigation
+        self.safe_btn = ctk.CTkButton(self, text="SAFE MODE: OFF", fg_color="#e67e22", command=self.toggle_safe_mode)
+        self.safe_btn.pack(pady=10)
+
+        # Status: Security Shield
+        self.status_box = ctk.CTkLabel(self, text="SHIELD STATUS: SECURED", text_color="#2ecc71", font=("Roboto", 16, "bold"))
+        self.status_box.pack(pady=10)
+
+        # Analytics: Real-time delay display
+        self.speed_label = ctk.CTkLabel(self, text="Inter-Keystroke Delay: --")
+        self.speed_label.pack()
+        
+        # Visualization: Health bar for keystrokes
+        self.progress = ctk.CTkProgressBar(self, width=400)
+        self.progress.set(1.0) 
+        self.progress.pack(pady=10)
+
+        # Forensic Terminal
+        self.console = ctk.CTkTextbox(self, width=500, height=150)
+        self.console.pack(pady=15)
+        self.console.insert("0.0", "[System] Ultra-Fast Monitoring Active...\n")
+
+        # Navigation Buttons
+        self.btn_frame = ctk.CTkFrame(self, fg_color="transparent")
+        self.btn_frame.pack(pady=10)
+        self.log_btn = ctk.CTkButton(self.btn_frame, text="View Logs", command=self.open_logs)
+        self.log_btn.grid(row=0, column=0, padx=10)
+        self.restore_btn = ctk.CTkButton(self.btn_frame, text="Reset Shield", command=self.restore_system)
+        self.restore_btn.grid(row=0, column=1, padx=10)
+
+        # Behavioral Biometrics Data
+        self.last_key_time = time.time() # Last event timestamp
+        self.intervals = []              # Timing data buffer
+        
+        # Multithreading: Background listener execution
+        self.listener_thread = threading.Thread(target=self.start_listener, daemon=True)
+        self.listener_thread.start()
+
+    def toggle_safe_mode(self):
         """Toggle: Alert-only vs Active Lockdown."""
         self.safe_mode = not self.safe_mode
         text = "SAFE MODE: ON" if self.safe_mode else "SAFE MODE: OFF"
@@ -18,7 +77,7 @@ def toggle_safe_mode(self):
         self.safe_btn.configure(text=text, fg_color=color)
 
 
-def update_dashboard(self, avg_delay):
+    def update_dashboard(self, avg_delay):
         """Engine: Real-time Analysis & Mitigation."""
         self.speed_label.configure(text=f"Delay: {avg_delay:.4f}s")
         meter_val = min(avg_delay / 0.2, 1.0) 
