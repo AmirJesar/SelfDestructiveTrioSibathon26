@@ -33,3 +33,8 @@ class AttackSimulator(ctk.CTk):
     # This prevents GUI from freezing while attack runs
     def start_attack_thread(self):
         threading.Thread(target=self.run_attack, daemon=True).start()
+
+# Entry point of the program
+if __name__ == "__main__":
+    app = AttackSimulator()  # Create app instance
+    app.mainloop()           # Run GUI event loop
